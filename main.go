@@ -2,21 +2,11 @@ package main
 
 import (
 	"net/http"
-	"text/template"
-
-	"github.com/hiagofss/store-shop/models"
+	"store-shop/routes"
 )
 
-var temp = template.Must(template.ParseGlob("templates/*.html"))
-
 func main() {
+	routes.LoadRoutes()
 
-	http.HandleFunc("/products", renderProducts)
 	http.ListenAndServe("localhost:8000", nil)
-}
-
-func renderProducts(w http.ResponseWriter, r *http.Request) {
-	allProducts := models.GetAllProducts()
-
-	temp.ExecuteTemplate(w, "Index", allProducts)
 }

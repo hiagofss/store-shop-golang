@@ -1,6 +1,6 @@
 package models
 
-import "github.com/hiagofss/store-shop/db"
+import "store-shop/db"
 
 type Product struct {
 	Id          string

@@ -1,4 +1,4 @@
-module github.com/hiagofss/store-shop
+module store-shop
 
 go 1.21.4
 
