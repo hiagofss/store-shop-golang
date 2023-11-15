@@ -11,4 +11,6 @@ func LoadRoutes() {
 	})
 
 	http.HandleFunc("/products", controllers.GetProducts)
+	http.HandleFunc("/products/new", controllers.NewProduct)
+	http.HandleFunc("/products/insert", controllers.InsertProduct)
 }
