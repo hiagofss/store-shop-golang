@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"store-shop/models"
@@ -38,5 +39,16 @@ func InsertProduct(w http.ResponseWriter, r *http.Request) {
 		models.InsertProduct(name, description, priceConverted, quantityConverted)
 	}
 
-	http.Redirect(w, r, "/products", 301)
+	http.Redirect(w, r, "/products", http.StatusPermanentRedirect)
+}
+
+func DeleteProdut(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("DeleteProduct")
+
+	productId := r.URL.Query().Get("id")
+	fmt.Println("productId =>", productId)
+
+	models.DeleteProduct(productId)
+
+	http.Redirect(w, r, "/products", http.StatusPermanentRedirect)
 }
