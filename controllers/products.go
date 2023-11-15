@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
 	"store-shop/models"
@@ -42,13 +41,40 @@ func InsertProduct(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/products", http.StatusPermanentRedirect)
 }
 
-func DeleteProdut(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("DeleteProduct")
-
+func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	productId := r.URL.Query().Get("id")
-	fmt.Println("productId =>", productId)
 
 	models.DeleteProduct(productId)
+
+	http.Redirect(w, r, "/products", http.StatusPermanentRedirect)
+}
+
+func EditProduct(w http.ResponseWriter, r *http.Request) {
+	productId := r.URL.Query().Get("id")
+	product := models.GetProduct(productId)
+
+	temp.ExecuteTemplate(w, "EditProduct", product)
+}
+
+func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		id := r.FormValue("id")
+		name := r.FormValue("name")
+		description := r.FormValue("description")
+		price := r.FormValue("price")
+		quantity := r.FormValue("quantity")
+
+		priceConverted, err := strconv.ParseFloat(price, 64)
+		if err != nil {
+			panic(err.Error())
+		}
+		quantityConverted, err := strconv.Atoi(quantity)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		models.UpdateProduct(id, name, description, priceConverted, quantityConverted)
+	}
 
 	http.Redirect(w, r, "/products", http.StatusPermanentRedirect)
 }

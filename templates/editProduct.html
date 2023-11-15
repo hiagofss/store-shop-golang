@@ -1,14 +1,16 @@
-{{define "NewProduct"}} {{template "_head"}}
+{{define "EditProduct"}} {{template "_head"}}
+
 <body>
   {{template "_navbar"}}
   <div class="container">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
-        <h1 class="display-5">Create new products</h1>
-        <p class="lead">Set product details</p>
+        <h1 class="display-5">Edit products</h1>
+        <p class="lead">Update product details</p>
       </div>
     </div>
-    <form action="/products/insert" method="post">
+    <form action="/products/update" method="post">
+      <input type="hidden" id="id" name="id" value="{{.Id}}" />
       <div class="row">
         <div class="col">
           <div class="mb-3">
@@ -19,6 +21,7 @@
               name="name"
               type="text"
               class="form-control"
+              value="{{.Name}}"
             />
           </div>
         </div>
@@ -32,6 +35,7 @@
               id="description"
               name="description"
               class="form-control"
+              value="{{.Description}}"
             />
           </div>
         </div>
@@ -46,6 +50,7 @@
               name="price"
               class="form-control"
               step="0.01"
+              value="{{.Price}}"
             />
           </div>
         </div>
@@ -57,6 +62,7 @@
               id="quantity"
               name="quantity"
               class="form-control"
+              value="{{.Quantity}}"
             />
           </div>
         </div>
@@ -80,4 +86,5 @@
     crossorigin="anonymous"
   ></script>
 </body>
+
 {{template "_footer"}} {{end}}
